@@ -11,16 +11,16 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         sulfuras_item = items[0]
-        self.assertEquals(80, sulfuras_item.quality)
-        self.assertEquals(4, sulfuras_item.sell_in)
-        self.assertEquals("Sulfuras", sulfuras_item.name)
+        self.assertEqual(80, sulfuras_item.quality)
+        self.assertEqual(5, sulfuras_item.sell_in)
+        self.assertEqual("Sulfuras", sulfuras_item.name)
 
     # example of test that checks for syntax errors
     def test_gilded_rose_list_all_items(self):
         items = [Item("Sulfuras", 5, 80)]
         gilded_rose = GildedRose(items)
         all_items = gilded_rose.get_items()
-        self.assertEquals(["Sulfuras"], all_items)
+        self.assertEqual(("Sulfuras", 80), (all_items[0].name, all_items[0].quality))
         
     def test_quality_never_negative(self):
         
@@ -41,13 +41,13 @@ class GildedRoseTest(unittest.TestCase):
         items = [Item("Aged Brie", 2, 49)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        self.assertEqual(items[0].quality, 51, "Aged Brie should not exceed quality of 50")
+        self.assertEqual(items[0].quality, 50, "Aged Brie should not exceed quality of 50")
     
     def test_sulfuras_sell_in_decreases(self):
-        items = [Item("Sulfuras, Hand of Ragnaros", 5, 80)]
+        items = [Item("Sulfuras", 5, 80)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        self.assertNotEqual(items[0].sell_in, 5, "Sulfuras should not change sell_in")  # Should fail because it should stay the same
+        self.assertEqual(items[0].sell_in, 5, "Sulfuras should not change sell_in") 
 
     
     def test_syntax_error(self):
